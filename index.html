@@ -69,8 +69,8 @@ body {
     width: 6px;
     height: 12px;
     top: -10px;
-    opacity: 0.9;
-    animation: fall linear forwards;
+    opacity: 0.8;
+    animation: fall linear infinite;
 }
 
 @keyframes fall {
@@ -140,33 +140,34 @@ body {
     }
 }
 
-/* 🙏 الدعاء */
+/* 🙏 الدعاء (مكبر) */
 .dua {
     margin-top: 30px;
     font-size: 2em;
     line-height: 1.8;
     color: #e2e8f0;
     text-align: center;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 3s ease;
 }
 
-/* ✍️ توقيع */
-.signature {
-    position: fixed;
-    bottom: 10px;
-    right: 15px;
-    font-size: 0.9em;
-    color: #64748b;
-    opacity: 0.7;
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🎬 intro -->
 <div id="intro">
-    🎁  مفاجأة 
+    🎁  مفاجأة
 </div>
 
+<!-- 🎂 main -->
 <div id="main">
     <h1 class="title">🎂 Happy Birthday to you 🎂</h1>
 
@@ -180,15 +181,13 @@ body {
         ربي يجعلك قرة عين لأهلك<br>
         ويحفظك لنا وتكبر<br>
         ونشوفك في أعلى المراتب<br>
-        وعقبال 100 سنة يا رب 💙
+       💙 وعقبال 100 سنة يا رب 
     </p>
 </div>
 
-<div class="signature">Anas</div>
-
 <script>
 
-// ✨ الاسم
+// ✨ كتابة الاسم
 function typeName(text){
     let el = document.getElementById("name");
     let i=0;
@@ -199,17 +198,15 @@ function typeName(text){
     },120);
 }
 
-// 🎊 confetti (انفجار)
-function confettiBurst(){
-    for(let i=0;i<150;i++){
+// 🎊 confetti
+function confetti(){
+    for(let i=0;i<120;i++){
         let c=document.createElement("div");
         c.className="confetti";
         c.style.left=Math.random()*100+"vw";
         c.style.background=["#ff4d4d","#ffd93d","#4dff88","#4da6ff"][Math.floor(Math.random()*4)];
-        c.style.animationDuration=(2+Math.random()*2)+"s";
+        c.style.animationDuration=(3+Math.random()*3)+"s";
         document.body.appendChild(c);
-
-        setTimeout(()=>c.remove(),3000);
     }
 }
 
@@ -228,7 +225,7 @@ function balloons(){
 // 🕯️ candles
 function candles(){
     let container = document.getElementById("candles");
-    container.innerHTML = "";
+    container.innerHTML = ""; // تنظيف
 
     for(let i=0;i<9;i++){
         let c = document.createElement("div");
@@ -244,7 +241,7 @@ function candles(){
     setTimeout(blow,5000);
 }
 
-// 💨 إطفاء
+// 💨 blow candles
 function blow(){
     document.querySelectorAll(".flame").forEach(f=>{
         f.remove();
@@ -258,15 +255,20 @@ function blow(){
 // 🚀 start
 setTimeout(()=>{
     typeName("فيصل محمود الدحدوح");
-    confettiBurst();
+    confetti();
     balloons();
     candles();
 },3000);
 
-// 💥 عند الضغط
-document.body.addEventListener("click", confettiBurst);
-
 </script>
-
+<div class="signature">Anas</div>
+    .signature {
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    font-size: 0.9em;
+    color: #64748b;
+    opacity: 0.7;
+}
 </body>
 </html>
