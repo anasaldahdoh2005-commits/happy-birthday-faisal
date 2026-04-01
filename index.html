@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عيد ميلاد سعيد 🎂</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    background: #0f172a;
+    color: white;
+    overflow-x: hidden;
+}
+
+.screen {
+    display: none;
+    padding: 40px 20px;
+}
+
+.active {
+    display: block;
+}
+
+h1 {
+    font-size: 2.2em;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #22c55e;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #16a34a;
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: red;
+    top: 0;
+    animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎬 شاشة البداية -->
+<div id="start" class="screen active">
+    <h1>🎂 عيد ميلاد سعيد يا فيصل!</h1>
+    <p>في مفاجأة خاصة إلك 👇</p>
+    <button onclick="next('message')">ابدأ 🎁</button>
+</div>
+
+<!-- 💬 رسالة -->
+<div id="message" class="screen">
+    <h1>أنا فخور فيك 💙</h1>
+    <p>حتى وإنت بعيد… أنت بطل!</p>
+    <button onclick="next('video')">كمل 👇</button>
+</div>
+
+<!-- 🎥 فيديو -->
+<div id="video" class="screen">
+    <h1>رسالة خاصة إلك 🎥</h1>
+
+    <!-- ✨ حط رابط الفيديو تبعك هون -->
+    <video width="90%" controls>
+        <source src="YOUR_VIDEO.mp4" type="video/mp4">
+    </video>
+
+    <br>
+    <button onclick="next('gift')">افتح الهدية 🎁</button>
+</div>
+
+<!-- 🎁 هدية -->
+<div id="gift" class="screen">
+    <h1>🎉 مفاجأة!</h1>
+    <p>أنت أعظم هدية بالعالم 💙</p>
+    <button onclick="showCertificate()">شوف الجائزة 🏆</button>
+</div>
+
+<!-- 🏆 شهادة -->
+<div id="certificate" class="screen">
+    <h1>🏆 شهادة بطل</h1>
+    <p>مقدمة إلى: فيصل</p>
+    <p>لأنه شخص رائع ومميز 🎂</p>
+</div>
+
+<script>
+function next(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function showCertificate() {
+    next('certificate');
+    confetti();
+}
+
+// 🎉 Confetti بسيط
+function confetti() {
+    for (let i = 0; i < 50; i++) {
+        let div = document.createElement("div");
+        div.className = "confetti";
+        div.style.left = Math.random() * 100 + "vw";
+        div.style.background = ["red","yellow","blue","green"][Math.floor(Math.random()*4)];
+        div.style.animationDuration = (2 + Math.random() * 3) + "s";
+        document.body.appendChild(div);
+
+        setTimeout(() => div.remove(), 4000);
+    }
+}
+</script>
+
+</body>
+</html>
