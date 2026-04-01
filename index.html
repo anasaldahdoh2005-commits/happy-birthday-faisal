@@ -42,14 +42,16 @@ body {
     to {opacity: 1;}
 }
 
-h1 {
+/* 🎂 العنوان */
+.title {
     margin-top: 50px;
-    font-size: 2.5em;
+    font-size: 1.6em;
+    white-space: nowrap;
 }
 
 /* ✨ الاسم */
 .name {
-    font-size: 2.5em;
+    font-size: 2.3em;
     color: #22c55e;
     text-shadow: 0 0 20px #22c55e, 0 0 40px #22c55e;
 }
@@ -141,9 +143,13 @@ h1 {
 /* 🙏 الدعاء */
 .dua {
     margin-top: 30px;
-    font-size: 1.3em;
-    line-height: 1.8;
+    font-size: 1.1em;
+    line-height: 2;
     color: #e2e8f0;
+    text-align: center;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     animation: fadeIn 3s ease;
 }
 
@@ -158,12 +164,12 @@ h1 {
 
 <!-- 🎬 intro -->
 <div id="intro">
-    🎁   مفاجأة
+    🎁 في مفاجأة...
 </div>
 
 <!-- 🎂 main -->
 <div id="main">
-    <h1>🎂 Happy Birthday to you 🎂</h1>
+    <h1 class="title">🎂 Happy Birthday 🎂</h1>
 
     <div class="name" id="name"></div>
     <p class="from">تهنئة من أنس محمد الدحدوح 💙</p>
@@ -171,7 +177,9 @@ h1 {
     <div class="cake" id="candles"></div>
 
     <p class="dua">
-        🎉 عيد ميلاد سعيد يا بطل، ربي يجعلك قرة عين لأهلك ويحفظك لنا وتكبر ونشوفك في أعلى المراتب<br>
+        🎉 عيد ميلاد سعيد يا بطل<br>
+        ربي يجعلك قرة عين لأهلك<br>
+        ويحفظك لنا وتكبر ونشوفك في أعلى المراتب<br>
         وعقبال 100 سنة يا رب 💙
     </p>
 </div>
