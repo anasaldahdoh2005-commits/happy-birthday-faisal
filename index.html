@@ -59,7 +59,7 @@ body {
 /* 👇 الإهداء */
 .from {
     margin-top: 10px;
-    font-size: 1.1em;
+    font-size: 1.4em;
     color: #94a3b8;
 }
 
@@ -224,14 +224,15 @@ function balloons(){
 
 // 🕯️ candles
 function candles(){
-    let container=document.getElementById("candles");
+    let container = document.getElementById("candles");
+    container.innerHTML = ""; // تنظيف
 
     for(let i=0;i<9;i++){
-        let c=document.createElement("div");
-        c.className="candle";
+        let c = document.createElement("div");
+        c.className = "candle";
 
-        let f=document.createElement("div");
-        f.className="flame";
+        let f = document.createElement("div");
+        f.className = "flame";
 
         c.appendChild(f);
         container.appendChild(c);
