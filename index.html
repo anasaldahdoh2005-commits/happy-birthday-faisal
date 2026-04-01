@@ -15,7 +15,7 @@ body {
     overflow: hidden;
 }
 
-/* 🎬 شاشة البداية */
+/* 🎬 intro */
 #intro {
     position: fixed;
     width: 100%;
@@ -32,7 +32,7 @@ body {
     to {opacity: 0; visibility: hidden;}
 }
 
-/* 🎂 المحتوى */
+/* 🎂 main */
 #main {
     opacity: 0;
     animation: show 2s forwards 3s;
@@ -47,14 +47,21 @@ h1 {
     font-size: 2.5em;
 }
 
-/* ✨ glow */
+/* ✨ الاسم */
 .name {
     font-size: 2.5em;
     color: #22c55e;
     text-shadow: 0 0 20px #22c55e, 0 0 40px #22c55e;
 }
 
-/* 🎊 confetti واقعي */
+/* 👇 الإهداء */
+.from {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #94a3b8;
+}
+
+/* 🎊 confetti */
 .confetti {
     position: fixed;
     width: 6px;
@@ -70,7 +77,7 @@ h1 {
     }
 }
 
-/* 🎈 بالونات */
+/* 🎈 balloons */
 .balloon {
     position: fixed;
     bottom: -100px;
@@ -84,12 +91,12 @@ h1 {
     to {transform: translateY(-130vh);}
 }
 
-/* 🎂 كيك */
+/* 🎂 cake */
 .cake {
     margin-top: 30px;
 }
 
-/* 🕯️ الشمع */
+/* 🕯️ candles */
 .candle {
     width: 10px;
     height: 40px;
@@ -113,7 +120,7 @@ h1 {
     50% {opacity: 0.5;}
 }
 
-/* 💨 دخان */
+/* 💨 smoke */
 .smoke {
     width: 10px;
     height: 10px;
@@ -130,6 +137,20 @@ h1 {
         transform: translateY(-40px);
     }
 }
+
+/* 🙏 الدعاء */
+.dua {
+    margin-top: 30px;
+    font-size: 1.3em;
+    line-height: 1.8;
+    color: #e2e8f0;
+    animation: fadeIn 3s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
 </style>
 </head>
 
@@ -137,22 +158,29 @@ h1 {
 
 <!-- 🎬 intro -->
 <div id="intro">
-    🎁  مفاجأة
+    🎁   مفاجأة
 </div>
 
 <!-- 🎂 main -->
 <div id="main">
-    <h1>🎂 Happy Birthday 🎂</h1>
+    <h1>🎂 Happy Birthday to you 🎂</h1>
+
     <div class="name" id="name"></div>
+    <p class="from">تهنئة من أنس محمد الدحدوح 💙</p>
 
     <div class="cake" id="candles"></div>
+
+    <p class="dua">
+        🎉 أتمنى لك التوفيق في حياتك<br>
+        وعقبال 100 سنة يا رب 💙
+    </p>
 </div>
 
 <script>
 
 // ✨ كتابة الاسم
 function typeName(text){
-    let el = document.getElementById(" الدحدوح فيصل");
+    let el = document.getElementById("name");
     let i=0;
     let interval=setInterval(()=>{
         el.innerHTML += text[i];
@@ -161,7 +189,7 @@ function typeName(text){
     },120);
 }
 
-// 🎊 confetti محترم
+// 🎊 confetti
 function confetti(){
     for(let i=0;i<120;i++){
         let c=document.createElement("div");
@@ -173,7 +201,7 @@ function confetti(){
     }
 }
 
-// 🎈 بالونات ناعمة
+// 🎈 balloons
 function balloons(){
     for(let i=0;i<12;i++){
         let b=document.createElement("div");
@@ -185,7 +213,7 @@ function balloons(){
     }
 }
 
-// 🕯️ شمع
+// 🕯️ candles
 function candles(){
     let container=document.getElementById("candles");
 
@@ -203,7 +231,7 @@ function candles(){
     setTimeout(blow,5000);
 }
 
-// 💨 إطفاء
+// 💨 blow candles
 function blow(){
     document.querySelectorAll(".flame").forEach(f=>{
         f.remove();
@@ -214,9 +242,9 @@ function blow(){
     });
 }
 
-// 🚀 تشغيل
+// 🚀 start
 setTimeout(()=>{
-    typeName("فيصل الدحدوح"); // 👈 غير الاسم
+    typeName("فيصل محمود الدحدوح");
     confetti();
     balloons();
     candles();
