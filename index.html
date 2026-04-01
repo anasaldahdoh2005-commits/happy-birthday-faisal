@@ -15,6 +15,7 @@ body {
     overflow: hidden;
 }
 
+/* intro */
 #intro {
     position: fixed;
     width: 100%;
@@ -95,4 +96,55 @@ body {
         🎉 عيد ميلاد سعيد يا بطل<br>
         ربي يجعلك قرة عين لأهلك<br>
         ويحفظك لنا وتكبر<br>
-        ونشوفك في أعلى
+        ونشوفك في أعلى المراتب<br>
+        💙 وعقبال 100 سنة يا رب
+    </p>
+</div>
+
+<!-- الصوت -->
+<audio id="music" src="music.mp3.mpeg" preload="auto" loop></audio>
+
+<script>
+
+// الاسم
+function typeName(text){
+    let el = document.getElementById("name");
+    let i=0;
+    let interval=setInterval(()=>{
+        el.innerHTML += text[i];
+        i++;
+        if(i>=text.length) clearInterval(interval);
+    },120);
+}
+
+// confetti
+function confetti(){
+    for(let i=0;i<100;i++){
+        let c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"vw";
+        c.style.background=["red","yellow","green","blue"][Math.floor(Math.random()*4)];
+        c.style.animationDuration=(3+Math.random()*3)+"s";
+        document.body.appendChild(c);
+    }
+}
+
+// التشغيل
+setTimeout(()=>{
+    typeName("فيصل محمود الدحدوح");
+    confetti();
+},3000);
+
+// تشغيل الصوت أول لمسة
+function playMusic(){
+    let audio = document.getElementById("music");
+    audio.play().catch(()=>{});
+}
+
+document.addEventListener("touchstart", playMusic, { once: true });
+document.addEventListener("click", playMusic, { once: true });
+
+</script>
+
+</body>
+</html>
