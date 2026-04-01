@@ -10,9 +10,9 @@ body {
     margin: 0;
     font-family: Arial;
     text-align: center;
-    background: #0f172a;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
     color: white;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .screen {
@@ -24,15 +24,11 @@ body {
     display: block;
 }
 
-h1 {
-    font-size: 2.2em;
-}
-
 button {
     padding: 15px 25px;
     font-size: 18px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     background: #22c55e;
     color: white;
     cursor: pointer;
@@ -43,11 +39,41 @@ button:hover {
     background: #16a34a;
 }
 
+/* 🎂 عنوان */
+.title {
+    font-size: 2.5em;
+    margin-top: 40px;
+}
+
+/* ✨ Glow */
+.glow {
+    font-size: 2.2em;
+    color: #fff;
+    text-shadow: 0 0 10px #22c55e, 0 0 20px #22c55e, 0 0 40px #22c55e;
+}
+
+/* 🎈 بالونات */
+.balloon {
+    position: fixed;
+    bottom: -100px;
+    width: 40px;
+    height: 60px;
+    background: red;
+    border-radius: 50%;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    to {
+        transform: translateY(-120vh);
+    }
+}
+
+/* 🎊 confetti */
 .confetti {
     position: fixed;
     width: 10px;
     height: 10px;
-    background: red;
     top: 0;
     animation: fall 3s linear infinite;
 }
@@ -62,9 +88,9 @@ button:hover {
 
 <body>
 
-<!-- 🎬 شاشة البداية -->
+<!-- 🎬 البداية -->
 <div id="start" class="screen active">
-    <h1>🎂 عيد ميلاد سعيد يا فيصل!</h1>
+    <h1 class="title">🎂 اليوم يومك يا بطل</h1>
     <p>في مفاجأة خاصة إلك 👇</p>
     <button onclick="next('message')">ابدأ 🎁</button>
 </div>
@@ -73,59 +99,72 @@ button:hover {
 <div id="message" class="screen">
     <h1>أنا فخور فيك 💙</h1>
     <p>حتى وإنت بعيد… أنت بطل!</p>
-    <button onclick="next('video')">كمل 👇</button>
+    <button onclick="next('final')">كمل 👇</button>
 </div>
 
-<!-- 🎥 فيديو -->
-<div id="video" class="screen">
-    <h1>رسالة خاصة إلك 🎥</h1>
-
-    <!-- ✨ حط رابط الفيديو تبعك هون -->
-    <video width="90%" controls>
-        <source src="YOUR_VIDEO.mp4" type="video/mp4">
-    </video>
-
-    <br>
-    <button onclick="next('gift')">افتح الهدية 🎁</button>
-</div>
-
-<!-- 🎁 هدية -->
-<div id="gift" class="screen">
-    <h1>🎉 مفاجأة!</h1>
-    <p>أنت أعظم هدية بالعالم 💙</p>
-    <button onclick="showCertificate()">شوف الجائزة 🏆</button>
-</div>
-
-<!-- 🏆 شهادة -->
-<div id="certificate" class="screen">
-    <h1>🏆 شهادة بطل</h1>
-    <p>مقدمة إلى: فيصل</p>
-    <p>لأنه شخص رائع ومميز 🎂</p>
+<!-- 🎉 النهاية -->
+<div id="final" class="screen">
+    <h1>🎂 Happy Birthday 🎂</h1>
+    <h2 id="name" class="glow"></h2>
+    <p>أنت شخص مميز جدًا 💙</p>
 </div>
 
 <script>
 function next(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+
+    if(id === "final"){
+        startCelebration();
+    }
 }
 
-function showCertificate() {
-    next('certificate');
-    confetti();
+// ✨ كتابة الاسم تدريجيًا
+function typeName(text) {
+    let i = 0;
+    let el = document.getElementById("name");
+    el.innerHTML = "";
+
+    let interval = setInterval(() => {
+        el.innerHTML += text[i];
+        i++;
+        if(i >= text.length) clearInterval(interval);
+    }, 150);
 }
 
-// 🎉 Confetti بسيط
+// 🎊 confetti
 function confetti() {
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
         let div = document.createElement("div");
         div.className = "confetti";
         div.style.left = Math.random() * 100 + "vw";
-        div.style.background = ["red","yellow","blue","green"][Math.floor(Math.random()*4)];
+        div.style.background = ["red","yellow","blue","green","pink"][Math.floor(Math.random()*5)];
         div.style.animationDuration = (2 + Math.random() * 3) + "s";
         document.body.appendChild(div);
 
         setTimeout(() => div.remove(), 4000);
     }
+}
+
+// 🎈 بالونات
+function balloons() {
+    for (let i = 0; i < 10; i++) {
+        let b = document.createElement("div");
+        b.className = "balloon";
+        b.style.left = Math.random() * 100 + "vw";
+        b.style.background = ["red","blue","yellow","green","pink"][Math.floor(Math.random()*5)];
+        b.style.animationDuration = (4 + Math.random() * 4) + "s";
+        document.body.appendChild(b);
+
+        setTimeout(() => b.remove(), 6000);
+    }
+}
+
+// 🚀 تشغيل الاحتفال
+function startCelebration(){
+    typeName("فيصل"); // 👈 غير الاسم هنا
+    confetti();
+    balloons();
 }
 </script>
 
