@@ -8,65 +8,85 @@
 <style>
 body {
     margin: 0;
+    background: #020617;
+    color: white;
     font-family: Arial;
     text-align: center;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
     overflow: hidden;
 }
 
-.screen {
-    display: none;
-    padding: 40px 20px;
-}
-
-.active {
-    display: block;
-}
-
-button {
-    padding: 15px 25px;
-    font-size: 18px;
-    border-radius: 12px;
-    background: #22c55e;
-    color: white;
-    border: none;
-}
-
-/* 🎂 Glow الاسم */
-.glow {
-    font-size: 2em;
-    text-shadow: 0 0 10px #22c55e, 0 0 30px #22c55e;
-}
-
-/* 🎈 بالونات أطول */
-.balloon {
+/* 🎬 شاشة البداية */
+#intro {
     position: fixed;
-    bottom: -100px;
-    width: 40px;
-    height: 60px;
-    border-radius: 50%;
-    animation: float 10s linear infinite;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    animation: fadeOut 2s forwards 2s;
 }
 
-@keyframes float {
-    to {
-        transform: translateY(-130vh);
-    }
+@keyframes fadeOut {
+    to {opacity: 0; visibility: hidden;}
 }
 
-/* 🎊 Confetti أطول */
+/* 🎂 المحتوى */
+#main {
+    opacity: 0;
+    animation: show 2s forwards 3s;
+}
+
+@keyframes show {
+    to {opacity: 1;}
+}
+
+h1 {
+    margin-top: 50px;
+    font-size: 2.5em;
+}
+
+/* ✨ glow */
+.name {
+    font-size: 2.5em;
+    color: #22c55e;
+    text-shadow: 0 0 20px #22c55e, 0 0 40px #22c55e;
+}
+
+/* 🎊 confetti واقعي */
 .confetti {
     position: fixed;
-    width: 8px;
-    height: 8px;
-    animation: fall 6s linear infinite;
+    width: 6px;
+    height: 12px;
+    top: -10px;
+    opacity: 0.8;
+    animation: fall linear infinite;
 }
 
 @keyframes fall {
     to {
-        transform: translateY(100vh);
+        transform: translateY(110vh) rotate(360deg);
     }
+}
+
+/* 🎈 بالونات */
+.balloon {
+    position: fixed;
+    bottom: -100px;
+    width: 50px;
+    height: 70px;
+    border-radius: 50%;
+    animation: float 12s linear infinite;
+}
+
+@keyframes float {
+    to {transform: translateY(-130vh);}
+}
+
+/* 🎂 كيك */
+.cake {
+    margin-top: 30px;
 }
 
 /* 🕯️ الشمع */
@@ -74,7 +94,7 @@ button {
     width: 10px;
     height: 40px;
     background: white;
-    margin: 5px;
+    margin: 3px;
     display: inline-block;
     position: relative;
 }
@@ -90,9 +110,7 @@ button {
 }
 
 @keyframes flicker {
-    0% {opacity: 1;}
-    50% {opacity: 0.6;}
-    100% {opacity: 1;}
+    50% {opacity: 0.5;}
 }
 
 /* 💨 دخان */
@@ -103,112 +121,107 @@ button {
     border-radius: 50%;
     position: absolute;
     top: -20px;
-    opacity: 0;
     animation: smoke 2s forwards;
 }
 
 @keyframes smoke {
-    0% {opacity: 0.8; transform: translateY(0);}
-    100% {opacity: 0; transform: translateY(-40px);}
+    to {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- البداية -->
-<div id="start" class="screen active">
-    <h1>🎂 اليوم يومك</h1>
-    <button onclick="next()">ابدأ 🎁</button>
+<!-- 🎬 intro -->
+<div id="intro">
+    🎁 في مفاجأة...
 </div>
 
-<!-- النهاية -->
-<div id="final" class="screen">
+<!-- 🎂 main -->
+<div id="main">
     <h1>🎂 Happy Birthday 🎂</h1>
-    <h2 id="name" class="glow"></h2>
+    <div class="name" id="name"></div>
 
-    <!-- 🕯️ الشمع -->
-    <div id="candles"></div>
+    <div class="cake" id="candles"></div>
 </div>
 
 <script>
-function next(){
-    document.getElementById("start").classList.remove("active");
-    document.getElementById("final").classList.add("active");
-
-    startCelebration();
-}
 
 // ✨ كتابة الاسم
-function typeName(name){
+function typeName(text){
     let el = document.getElementById("name");
-    let i = 0;
-    let interval = setInterval(()=>{
-        el.innerHTML += name[i];
+    let i=0;
+    let interval=setInterval(()=>{
+        el.innerHTML += text[i];
         i++;
-        if(i >= name.length) clearInterval(interval);
-    },150);
+        if(i>=text.length) clearInterval(interval);
+    },120);
 }
 
-// 🎈 بالونات
-function balloons(){
-    for(let i=0;i<20;i++){
-        let b=document.createElement("div");
-        b.className="balloon";
-        b.style.left=Math.random()*100+"vw";
-        b.style.background=["red","blue","green","yellow","pink"][Math.floor(Math.random()*5)];
-        document.body.appendChild(b);
-    }
-}
-
-// 🎊 confetti
+// 🎊 confetti محترم
 function confetti(){
-    for(let i=0;i<150;i++){
+    for(let i=0;i<120;i++){
         let c=document.createElement("div");
         c.className="confetti";
         c.style.left=Math.random()*100+"vw";
-        c.style.background=["red","blue","green","yellow","pink"][Math.floor(Math.random()*5)];
+        c.style.background=["#ff4d4d","#ffd93d","#4dff88","#4da6ff"][Math.floor(Math.random()*4)];
+        c.style.animationDuration=(3+Math.random()*3)+"s";
         document.body.appendChild(c);
     }
 }
 
-// 🕯️ إنشاء الشمع
-function createCandles(){
-    let container = document.getElementById("candles");
-
-    for(let i=0;i<9;i++){ // 👈 عدد الشمع
-        let candle = document.createElement("div");
-        candle.className="candle";
-
-        let flame = document.createElement("div");
-        flame.className="flame";
-
-        candle.appendChild(flame);
-        container.appendChild(candle);
+// 🎈 بالونات ناعمة
+function balloons(){
+    for(let i=0;i<12;i++){
+        let b=document.createElement("div");
+        b.className="balloon";
+        b.style.left=Math.random()*100+"vw";
+        b.style.background=["red","yellow","green","blue","pink"][Math.floor(Math.random()*5)];
+        b.style.animationDuration=(8+Math.random()*5)+"s";
+        document.body.appendChild(b);
     }
-
-    // 🔥 بعد 5 ثواني تنطفي
-    setTimeout(blowCandles, 5000);
 }
 
-// 💨 إطفاء الشمع
-function blowCandles(){
+// 🕯️ شمع
+function candles(){
+    let container=document.getElementById("candles");
+
+    for(let i=0;i<9;i++){
+        let c=document.createElement("div");
+        c.className="candle";
+
+        let f=document.createElement("div");
+        f.className="flame";
+
+        c.appendChild(f);
+        container.appendChild(c);
+    }
+
+    setTimeout(blow,5000);
+}
+
+// 💨 إطفاء
+function blow(){
     document.querySelectorAll(".flame").forEach(f=>{
         f.remove();
 
-        let smoke = document.createElement("div");
-        smoke.className="smoke";
-        f.parentElement.appendChild(smoke);
+        let s=document.createElement("div");
+        s.className="smoke";
+        f.parentElement.appendChild(s);
     });
 }
 
-// 🚀 تشغيل كل شيء
-function startCelebration(){
+// 🚀 تشغيل
+setTimeout(()=>{
     typeName("فيصل"); // 👈 غير الاسم
-    balloons();
     confetti();
-    createCandles();
-}
+    balloons();
+    candles();
+},3000);
+
 </script>
 
 </body>
