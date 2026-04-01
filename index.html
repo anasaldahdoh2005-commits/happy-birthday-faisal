@@ -137,12 +137,12 @@ h1 {
 
 <!-- 🎬 intro -->
 <div id="intro">
-    🎁 في مفاجأة...
+    🎁  مفاجأة
 </div>
 
 <!-- 🎂 main -->
 <div id="main">
-    <h1>🎂 Happy Birthday to you 🎂</h1>
+    <h1>🎂 Happy Birthday 🎂</h1>
     <div class="name" id="name"></div>
 
     <div class="cake" id="candles"></div>
@@ -152,7 +152,7 @@ h1 {
 
 // ✨ كتابة الاسم
 function typeName(text){
-    let el = document.getElementById("name");
+    let el = document.getElementById(" الدحدوح فيصل");
     let i=0;
     let interval=setInterval(()=>{
         el.innerHTML += text[i];
@@ -216,7 +216,7 @@ function blow(){
 
 // 🚀 تشغيل
 setTimeout(()=>{
-    typeName("فيصل"); // 👈 غير الاسم
+    typeName("فيصل الدحدوح"); // 👈 غير الاسم
     confetti();
     balloons();
     candles();
