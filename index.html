@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عيد ميلاد سعيد 🎂</title>
+<title>عيد ميلاد 🎂</title>
 
 <style>
 body {
@@ -27,55 +27,40 @@ body {
 button {
     padding: 15px 25px;
     font-size: 18px;
-    border: none;
     border-radius: 12px;
     background: #22c55e;
     color: white;
-    cursor: pointer;
-    margin-top: 20px;
+    border: none;
 }
 
-button:hover {
-    background: #16a34a;
-}
-
-/* 🎂 عنوان */
-.title {
-    font-size: 2.5em;
-    margin-top: 40px;
-}
-
-/* ✨ Glow */
+/* 🎂 Glow الاسم */
 .glow {
-    font-size: 2.2em;
-    color: #fff;
-    text-shadow: 0 0 10px #22c55e, 0 0 20px #22c55e, 0 0 40px #22c55e;
+    font-size: 2em;
+    text-shadow: 0 0 10px #22c55e, 0 0 30px #22c55e;
 }
 
-/* 🎈 بالونات */
+/* 🎈 بالونات أطول */
 .balloon {
     position: fixed;
     bottom: -100px;
     width: 40px;
     height: 60px;
-    background: red;
     border-radius: 50%;
-    animation: float 6s linear infinite;
+    animation: float 10s linear infinite;
 }
 
 @keyframes float {
     to {
-        transform: translateY(-120vh);
+        transform: translateY(-130vh);
     }
 }
 
-/* 🎊 confetti */
+/* 🎊 Confetti أطول */
 .confetti {
     position: fixed;
-    width: 10px;
-    height: 10px;
-    top: 0;
-    animation: fall 3s linear infinite;
+    width: 8px;
+    height: 8px;
+    animation: fall 6s linear infinite;
 }
 
 @keyframes fall {
@@ -83,88 +68,146 @@ button:hover {
         transform: translateY(100vh);
     }
 }
+
+/* 🕯️ الشمع */
+.candle {
+    width: 10px;
+    height: 40px;
+    background: white;
+    margin: 5px;
+    display: inline-block;
+    position: relative;
+}
+
+.flame {
+    width: 10px;
+    height: 15px;
+    background: orange;
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    animation: flicker 0.2s infinite;
+}
+
+@keyframes flicker {
+    0% {opacity: 1;}
+    50% {opacity: 0.6;}
+    100% {opacity: 1;}
+}
+
+/* 💨 دخان */
+.smoke {
+    width: 10px;
+    height: 10px;
+    background: gray;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    opacity: 0;
+    animation: smoke 2s forwards;
+}
+
+@keyframes smoke {
+    0% {opacity: 0.8; transform: translateY(0);}
+    100% {opacity: 0; transform: translateY(-40px);}
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🎬 البداية -->
+<!-- البداية -->
 <div id="start" class="screen active">
-    <h1 class="title">🎂 اليوم يومك يا بطل</h1>
-    <p>في مفاجأة خاصة إلك 👇</p>
-    <button onclick="next('message')">ابدأ 🎁</button>
+    <h1>🎂 اليوم يومك</h1>
+    <button onclick="next()">ابدأ 🎁</button>
 </div>
 
-<!-- 💬 رسالة -->
-<div id="message" class="screen">
-    <h1>أنا فخور فيك 💙</h1>
-    <p>حتى وإنت بعيد… أنت بطل!</p>
-    <button onclick="next('final')">كمل 👇</button>
-</div>
-
-<!-- 🎉 النهاية -->
+<!-- النهاية -->
 <div id="final" class="screen">
     <h1>🎂 Happy Birthday 🎂</h1>
     <h2 id="name" class="glow"></h2>
-    <p>أنت شخص مميز جدًا 💙</p>
+
+    <!-- 🕯️ الشمع -->
+    <div id="candles"></div>
 </div>
 
 <script>
-function next(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+function next(){
+    document.getElementById("start").classList.remove("active");
+    document.getElementById("final").classList.add("active");
 
-    if(id === "final"){
-        startCelebration();
-    }
+    startCelebration();
 }
 
-// ✨ كتابة الاسم تدريجيًا
-function typeName(text) {
-    let i = 0;
+// ✨ كتابة الاسم
+function typeName(name){
     let el = document.getElementById("name");
-    el.innerHTML = "";
-
-    let interval = setInterval(() => {
-        el.innerHTML += text[i];
+    let i = 0;
+    let interval = setInterval(()=>{
+        el.innerHTML += name[i];
         i++;
-        if(i >= text.length) clearInterval(interval);
-    }, 150);
-}
-
-// 🎊 confetti
-function confetti() {
-    for (let i = 0; i < 80; i++) {
-        let div = document.createElement("div");
-        div.className = "confetti";
-        div.style.left = Math.random() * 100 + "vw";
-        div.style.background = ["red","yellow","blue","green","pink"][Math.floor(Math.random()*5)];
-        div.style.animationDuration = (2 + Math.random() * 3) + "s";
-        document.body.appendChild(div);
-
-        setTimeout(() => div.remove(), 4000);
-    }
+        if(i >= name.length) clearInterval(interval);
+    },150);
 }
 
 // 🎈 بالونات
-function balloons() {
-    for (let i = 0; i < 10; i++) {
-        let b = document.createElement("div");
-        b.className = "balloon";
-        b.style.left = Math.random() * 100 + "vw";
-        b.style.background = ["red","blue","yellow","green","pink"][Math.floor(Math.random()*5)];
-        b.style.animationDuration = (4 + Math.random() * 4) + "s";
+function balloons(){
+    for(let i=0;i<20;i++){
+        let b=document.createElement("div");
+        b.className="balloon";
+        b.style.left=Math.random()*100+"vw";
+        b.style.background=["red","blue","green","yellow","pink"][Math.floor(Math.random()*5)];
         document.body.appendChild(b);
-
-        setTimeout(() => b.remove(), 6000);
     }
 }
 
-// 🚀 تشغيل الاحتفال
+// 🎊 confetti
+function confetti(){
+    for(let i=0;i<150;i++){
+        let c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"vw";
+        c.style.background=["red","blue","green","yellow","pink"][Math.floor(Math.random()*5)];
+        document.body.appendChild(c);
+    }
+}
+
+// 🕯️ إنشاء الشمع
+function createCandles(){
+    let container = document.getElementById("candles");
+
+    for(let i=0;i<9;i++){ // 👈 عدد الشمع
+        let candle = document.createElement("div");
+        candle.className="candle";
+
+        let flame = document.createElement("div");
+        flame.className="flame";
+
+        candle.appendChild(flame);
+        container.appendChild(candle);
+    }
+
+    // 🔥 بعد 5 ثواني تنطفي
+    setTimeout(blowCandles, 5000);
+}
+
+// 💨 إطفاء الشمع
+function blowCandles(){
+    document.querySelectorAll(".flame").forEach(f=>{
+        f.remove();
+
+        let smoke = document.createElement("div");
+        smoke.className="smoke";
+        f.parentElement.appendChild(smoke);
+    });
+}
+
+// 🚀 تشغيل كل شيء
 function startCelebration(){
-    typeName("فيصل"); // 👈 غير الاسم هنا
-    confetti();
+    typeName("فيصل"); // 👈 غير الاسم
     balloons();
+    confetti();
+    createCandles();
 }
 </script>
 
